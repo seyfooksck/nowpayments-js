@@ -1,6 +1,6 @@
 {
   "name": "nowpayments-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NOWPayments Integration Module - Unique wallet addresses and payment system for each user",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -58,12 +58,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/seyfooksck/nowpayments.git"
+    "url": "https://github.com/seyfooksck/nowpayments-js.git"
   },
   "bugs": {
-    "url": "https://github.com/seyfooksck/nowpayments/issues"
+    "url": "https://github.com/seyfooksck/nowpayments-js/issues"
   },
-  "homepage": "https://github.com/seyfooksck/nowpayments#readme",
+  "homepage": "https://github.com/seyfooksck/nowpayments-js#readme",
   "files": [
     "src/**/*",
     "examples/**/*",
