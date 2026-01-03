@@ -1,8 +1,8 @@
 /**
- * NOWPayments np Integration - Test Suite
+ * NOWPayments Integration - Test Suite
  */
 
-const NowPayments = require('../../src');
+const NowPayments = require('../src');
 const IPNHandler = require('../src/modules/ipn');
 
 // Test yapılandırması
@@ -15,8 +15,13 @@ const testConfig = {
 // Test sayacı
 let passed = 0;
 let failed = 0;
+const asyncTests = [];
 
 function test(name, fn) {
+    if (fn.constructor.name === 'AsyncFunction') {
+        asyncTests.push({ name, fn });
+        return;
+    }
     try {
         fn();
         console.log(`✅ ${name}`);
@@ -59,7 +64,7 @@ function assertThrows(fn, message = '') {
 }
 
 console.log('====================================');
-console.log('NOWPayments np - Test Suite');
+console.log('NOWPayments - Test Suite');
 console.log('====================================\n');
 
 // =====================================================
@@ -191,9 +196,9 @@ test('Should correctly identify payment statuses', () => {
 
 console.log('\n💱 Currency Manager Tests\n');
 
-test('Should return popular np currencies', () => {
+test('Should return popular currencies', () => {
     const np = new NowPayments(testConfig);
-    const popular = np.currency.getPopularnpCurrencies();
+    const popular = np.currency.getPopularCurrencies();
     
     assertTrue(Array.isArray(popular));
     assertTrue(popular.length > 0);
@@ -247,12 +252,12 @@ test('Should have PAYOUT_STATUS constants', () => {
 console.log('\n📤 Module Exports Tests\n');
 
 test('Should export NowPayments as default', () => {
-    const Module = require('../../src');
+    const Module = require('../src');
     assertTrue(typeof Module === 'function');
 });
 
 test('Should export all sub-modules', () => {
-    const Module = require('../../src');
+    const Module = require('../src');
     assertTrue(Module.NowPayments !== undefined);
     assertTrue(Module.NowPaymentsClient !== undefined);
     assertTrue(Module.DepositManager !== undefined);
@@ -301,7 +306,7 @@ test('Payout should require address', async () => {
         });
         throw new Error('Should have thrown');
     } catch (e) {
-        assertTrue(e.message.includes('adres'));
+        assertTrue(e.message.includes('address'));
     }
 });
 
@@ -317,7 +322,7 @@ test('Payout should require valid amount', async () => {
         });
         throw new Error('Should have thrown');
     } catch (e) {
-        assertTrue(e.message.includes('miktar'));
+        assertTrue(e.message.includes('amount'));
     }
 });
 
@@ -336,15 +341,31 @@ test('Batch payout should require at least one payout', async () => {
 // SUMMARY
 // =====================================================
 
-console.log('\n====================================');
-console.log('Test Results');
-console.log('====================================');
-console.log(`✅ Passed: ${passed}`);
-console.log(`❌ Failed: ${failed}`);
-console.log(`📊 Total:  ${passed + failed}`);
-console.log('====================================\n');
-
-// Exit with error code if tests failed
-if (failed > 0) {
-    process.exit(1);
+async function runAsyncTests() {
+    for (const { name, fn } of asyncTests) {
+        try {
+            await fn();
+            console.log(`✅ ${name}`);
+            passed++;
+        } catch (error) {
+            console.log(`❌ ${name}`);
+            console.log(`   Error: ${error.message}`);
+            failed++;
+        }
+    }
 }
+
+runAsyncTests().then(() => {
+    console.log('\n====================================');
+    console.log('Test Results');
+    console.log('====================================');
+    console.log(`✅ Passed: ${passed}`);
+    console.log(`❌ Failed: ${failed}`);
+    console.log(`📊 Total:  ${passed + failed}`);
+    console.log('====================================\n');
+
+    // Exit with error code if tests failed
+    if (failed > 0) {
+        process.exit(1);
+    }
+});
