@@ -1,0 +1,79 @@
+{
+  "name": "nowpayments-js",
+  "version": "1.0.0",
+  "description": "NOWPayments Integration Module - Unique wallet addresses and payment system for each user",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "test": "node examples/en/test-all.js",
+    "test:en": "node examples/en/test-all.js",
+    "test:tr": "node examples/tr/test-all.js",
+    "test:es": "node examples/es/test-all.js",
+    "test:fr": "node examples/fr/test-all.js",
+    "test:de": "node examples/de/test-all.js",
+    "test:customer": "node examples/en/test-customer.js",
+    "test:deposit": "node examples/en/test-deposit.js",
+    "test:payout": "node examples/en/test-payout.js",
+    "test:custody": "node examples/en/test-custody.js",
+    "test:currency": "node examples/en/test-currency.js",
+    "test:ipn": "node examples/en/test-ipn.js",
+    "prepublishOnly": "echo 'Ready to publish'"
+  },
+  "keywords": [
+    "nowpayments",
+    "crypto",
+    "payment",
+    "cryptocurrency",
+    "wallet",
+    "deposit",
+    "payout",
+    "bitcoin",
+    "ethereum",
+    "gaming",
+    "crypto-payment",
+    "payment-gateway",
+    "usdt",
+    "tether",
+    "btc",
+    "eth"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "peerDependencies": {
+    "express": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seyfooksck/nowpayments.git"
+  },
+  "bugs": {
+    "url": "https://github.com/seyfooksck/nowpayments/issues"
+  },
+  "homepage": "https://github.com/seyfooksck/nowpayments#readme",
+  "files": [
+    "src/**/*",
+    "examples/**/*",
+    "README.md",
+    "README.tr.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    ".env.example"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
